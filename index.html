@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Kala Club | Art Workshops & More</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Caveat:wght@400;600;700&display=swap"
+      rel="stylesheet">
+    <style>
+  :root {
+    --cream: #FDF6EC;
+    --sand: #F5E8D0;
+    --terracotta: #C4714A;
+    --coral: #E8865A;
+    --mustard: #D4A843;
+    --peach: #F2B48A;
+    --brown: #3D2B1F;
+    --charcoal: #2C2420;
+    --sage: #8FA67A;
+    --pink: #F2C4C0;
+    --rose: #D4897A;
+    --olive: #6B7A4A;
+    --light-brown: #8B5E3C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%;
+    z-index: 1000;
+    padding: 18px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(253,246,236,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(196,113,74,0.15);
+    transition: all 0.3s;
+  }
+  nav.scrolled {
+    padding: 12px 5%;
+    box-shadow: 0 4px 30px rgba(61,43,31,0.08);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 40px; height: 40px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Caveat', cursive;
+    color: white; font-size: 18px; font-weight: 700;
+  }
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--brown); line-height: 1.1;
+  }
+  .nav-logo-text span { font-size: 0.65rem; font-weight: 400; color: var(--terracotta); display: block; letter-spacing: 1px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--brown); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-cta {
+    background: var(--terracotta); color: white;
+    border: none; padding: 10px 22px; border-radius: 50px;
+    font-size: 0.9rem; font-weight: 600; cursor: pointer;
+    text-decoration: none; transition: all 0.3s;
+  }
+  .nav-cta:hover { background: var(--brown); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 25px; height: 2px; background: var(--brown); transition: all 0.3s; border-radius: 2px; }
+  .mobile-menu {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--cream); z-index: 999; flex-direction: column;
+    align-items: center; justify-content: center; gap: 30px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--brown); text-decoration: none; }
+  .mobile-menu a:hover { color: var(--terracotta); }
+  .mobile-close { position: absolute; top: 20px; right: 5%; font-size: 2rem; color: var(--brown); cursor: pointer; background: none; border: none; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; padding-top: 80px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; position: relative; overflow: hidden;
+    background: linear-gradient(160deg, #FDF6EC 0%, #FAF0DF 40%, #F5E8D0 100%);
+  }
+  .hero-bg-circles {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .hero-bg-circles span {
+    position: absolute; border-radius: 50%; opacity: 0.12;
+  }
+  .hero-bg-circles span:nth-child(1) { width: 500px; height: 500px; background: var(--terracotta); top: -150px; right: -100px; }
+  .hero-bg-circles span:nth-child(2) { width: 300px; height: 300px; background: var(--mustard); bottom: 0; left: -80px; }
+  .hero-bg-circles span:nth-child(3) { width: 200px; height: 200px; background: var(--sage); top: 40%; left: 5%; }
+  .hero-tag {
+    display: inline-block; background: var(--pink); color: var(--rose);
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    padding: 6px 18px; border-radius: 50px; margin-bottom: 20px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 900; color: var(--brown); line-height: 1.05;
+    margin-bottom: 10px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero h1 em { color: var(--terracotta); font-style: italic; }
+  .hero-sub {
+    font-family: 'Caveat', cursive; font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--light-brown); margin-bottom: 20px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-desc {
+    max-width: 520px; font-size: 1rem; color: #5C4033; line-height: 1.7;
+    margin: 0 auto 36px; opacity: 0.85;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .btn-primary {
+    background: var(--terracotta); color: white;
+    padding: 14px 32px; border-radius: 50px; font-size: 1rem; font-weight: 600;
+    text-decoration: none; transition: all 0.3s; border: 2px solid var(--terracotta);
+  }
+  .btn-primary:hover { background: var(--brown); border-color: var(--brown); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(196,113,74,0.35); }
+  .btn-secondary {
+    background: transparent; color: var(--brown);
+    padding: 14px 32px; border-radius: 50px; font-size: 1rem; font-weight: 600;
+    text-decoration: none; transition: all 0.3s; border: 2px solid var(--brown);
+  }
+  .btn-secondary:hover { background: var(--brown); color: white; transform: translateY(-2px); }
+  .hero-stats {
+    margin-top: 60px; display: flex; gap: 50px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--terracotta); }
+  .stat-label { font-size: 0.8rem; color: var(--light-brown); text-transform: uppercase; letter-spacing: 1px; }
+  .hero-scroll {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    animation: fadeUp 0.8s 0.8s ease both;
+  }
+  .hero-scroll span { font-size: 0.75rem; color: var(--light-brown); letter-spacing: 1px; text-transform: uppercase; }
+  .scroll-dot { width: 6px; height: 6px; background: var(--terracotta); border-radius: 50%; animation: bounce 1.4s infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── SECTIONS SHARED ── */
+  section { padding: 90px 5%; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--terracotta); margin-bottom: 12px; display: block;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--brown); line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-title em { color: var(--terracotta); font-style: italic; }
+  .section-desc { font-size: 1rem; color: #5C4033; line-height: 1.7; max-width: 560px; opacity: 0.85; }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── ABOUT ── */
+  .about { background: var(--sand); }
+  .about-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center;
+  }
+  .about-visual {
+    position: relative; height: 420px;
+  }
+  .about-card {
+    position: absolute; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 12px 40px rgba(61,43,31,0.15);
+  }
+  .about-card-main {
+    width: 78%; height: 320px; top: 0; left: 0;
+    background: linear-gradient(135deg, var(--terracotta), var(--coral));
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px; color: white; text-align: center; padding: 30px;
+  }
+  .about-card-main .big-emoji { font-size: 4rem; }
+  .about-card-main p { font-family: 'Caveat', cursive; font-size: 1.4rem; }
+  .about-card-float {
+    width: 55%; height: 180px; bottom: 0; right: 0;
+    background: var(--cream); padding: 22px;
+    display: flex; flex-direction: column; justify-content: center; gap: 8px;
+  }
+  .about-card-float .mini-title { font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--terracotta); }
+  .about-card-float p { font-size: 0.85rem; color: var(--brown); line-height: 1.5; }
+  .about-pill {
+    display: inline-block; background: white; border: 1.5px solid var(--peach);
+    border-radius: 50px; padding: 8px 18px; font-size: 0.85rem;
+    color: var(--brown); margin: 6px 6px 0 0;
+  }
+  .about-pills { margin-top: 24px; }
+
+  /* ── WORKSHOPS ── */
+  .workshops { background: var(--cream); }
+  .workshops-inner { max-width: 1100px; margin: 0 auto; }
+  .workshops-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px;
+  }
+  .workshop-card {
+    background: white; border-radius: 20px; padding: 28px;
+    border: 1.5px solid rgba(196,113,74,0.12);
+    transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden;
+  }
+  .workshop-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--terracotta), var(--mustard));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .workshop-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(61,43,31,0.12); }
+  .workshop-card:hover::before { transform: scaleX(1); }
+  .workshop-icon { font-size: 2.5rem; margin-bottom: 14px; display: block; }
+  .workshop-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--brown); margin-bottom: 8px; font-weight: 700; }
+  .workshop-desc { font-size: 0.88rem; color: #6B4F3A; line-height: 1.6; margin-bottom: 16px; }
+  .workshop-tag {
+    background: var(--sand); border-radius: 50px; padding: 4px 14px;
+    font-size: 0.75rem; color: var(--terracotta); font-weight: 600;
+  }
+
+  /* ── GALLERY ── */
+  .gallery { background: var(--sand); }
+  .gallery-inner { max-width: 1100px; margin: 0 auto; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 220px 220px;
+    gap: 14px; margin-top: 50px;
+  }
+  .gallery-item {
+    border-radius: 16px; overflow: hidden; position: relative;
+    cursor: pointer; transition: transform 0.3s;
+  }
+  .gallery-item:hover { transform: scale(1.02); }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-item:nth-child(1) { grid-column: span 2; }
+  .gallery-item:nth-child(5) { grid-column: span 2; }
+  .gallery-mock {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 10px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem; color: white; text-align: center;
+  }
+  .gallery-mock span { font-size: 2.5rem; }
+  .g1 { background: linear-gradient(135deg, #C4714A, #E8865A); }
+  .g2 { background: linear-gradient(135deg, #D4A843, #E8C07A); }
+  .g3 { background: linear-gradient(135deg, #8FA67A, #B5C9A0); }
+  .g4 { background: linear-gradient(135deg, #F2C4C0, #D4897A); }
+  .g5 { background: linear-gradient(135deg, #6B7A4A, #8FA67A); }
+  .g6 { background: linear-gradient(135deg, #D4897A, #C4714A); }
+  .gallery-overlay {
+    position: absolute; inset: 0; background: rgba(61,43,31,0.5);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+    color: white; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px;
+  }
+  .gallery-ig-note {
+    text-align: center; margin-top: 28px;
+    font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--light-brown);
+  }
+  .gallery-ig-note a { color: var(--terracotta); }
+
+  /* ── EVENTS ── */
+  .events { background: var(--cream); }
+  .events-inner { max-width: 1100px; margin: 0 auto; }
+  .events-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 50px; }
+  .event-card {
+    background: white; border-radius: 20px; overflow: hidden;
+    border: 1.5px solid rgba(196,113,74,0.12);
+    transition: all 0.3s;
+  }
+  .event-card:hover { transform: translateY(-5px); box-shadow: 0 18px 45px rgba(61,43,31,0.12); }
+  .event-header {
+    padding: 20px 22px; color: white; display: flex; justify-content: space-between; align-items: center;
+  }
+  .event-date { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; }
+  .event-month { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; }
+  .event-emoji { font-size: 2rem; }
+  .eh1 { background: linear-gradient(135deg, var(--terracotta), var(--coral)); }
+  .eh2 { background: linear-gradient(135deg, var(--mustard), #E8C07A); }
+  .eh3 { background: linear-gradient(135deg, var(--sage), var(--olive)); }
+  .event-body { padding: 22px; }
+  .event-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--brown); margin-bottom: 10px; font-weight: 700; }
+  .event-meta { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .event-meta span { font-size: 0.83rem; color: #6B4F3A; display: flex; align-items: center; gap: 6px; }
+  .event-seats {
+    background: var(--sand); border-radius: 8px; padding: 8px 14px;
+    font-size: 0.82rem; color: var(--terracotta); font-weight: 600; margin-bottom: 16px;
+  }
+  .btn-event {
+    display: block; background: var(--terracotta); color: white;
+    text-align: center; padding: 11px; border-radius: 12px;
+    text-decoration: none; font-size: 0.9rem; font-weight: 600;
+    transition: all 0.3s;
+  }
+  .btn-event:hover { background: var(--brown); }
+
+  /* ── WHY US ── */
+  .why { background: var(--brown); color: var(--cream); }
+  .why-inner { max-width: 1100px; margin: 0 auto; }
+  .why .section-label { color: var(--peach); }
+  .why .section-title { color: var(--cream); }
+  .why .section-desc { color: rgba(253,246,236,0.75); }
+  .why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; margin-top: 50px; }
+  .why-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 28px; transition: all 0.3s;
+  }
+  .why-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
+  .why-icon { font-size: 2.2rem; margin-bottom: 16px; display: block; }
+  .why-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 10px; font-weight: 700; }
+  .why-desc { font-size: 0.87rem; color: rgba(253,246,236,0.72); line-height: 1.65; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--sand); }
+  .testimonials-inner { max-width: 1100px; margin: 0 auto; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 50px; }
+  .testi-card {
+    background: white; border-radius: 20px; padding: 28px;
+    border: 1.5px solid rgba(196,113,74,0.1); transition: all 0.3s;
+  }
+  .testi-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(61,43,31,0.1); }
+  .testi-stars { color: var(--mustard); font-size: 1rem; margin-bottom: 14px; }
+  .testi-text { font-size: 0.92rem; color: #5C4033; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+  .testi-user { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Caveat', cursive; font-size: 1rem; color: white; font-weight: 700;
+  }
+  .av1 { background: linear-gradient(135deg, var(--terracotta), var(--coral)); }
+  .av2 { background: linear-gradient(135deg, var(--mustard), var(--peach)); }
+  .av3 { background: linear-gradient(135deg, var(--sage), var(--olive)); }
+  .testi-name { font-weight: 600; color: var(--brown); font-size: 0.9rem; }
+  .testi-role { font-size: 0.78rem; color: var(--terracotta); }
+
+  /* ── CONTACT ── */
+  .contact { background: var(--cream); }
+  .contact-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; align-items: start;
+  }
+  .contact-info { display: flex; flex-direction: column; gap: 28px; }
+  .contact-item { display: flex; align-items: flex-start; gap: 16px; }
+  .contact-icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    background: var(--sand); display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .contact-item-label { font-size: 0.75rem; font-weight: 600; color: var(--terracotta); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .contact-item-val { font-size: 0.95rem; color: var(--brown); }
+  .contact-socials { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .social-chip {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--sand); padding: 10px 18px; border-radius: 50px;
+    font-size: 0.88rem; color: var(--brown); text-decoration: none; font-weight: 500;
+    transition: all 0.3s;
+  }
+  .social-chip:hover { background: var(--terracotta); color: white; }
+  .contact-form { display: flex; flex-direction: column; gap: 18px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.82rem; color: var(--light-brown); font-weight: 500; }
+  .form-group input, .form-group textarea, .form-group select {
+    padding: 13px 16px; border: 1.5px solid rgba(196,113,74,0.2);
+    border-radius: 12px; font-size: 0.92rem; color: var(--brown);
+    background: white; font-family: 'DM Sans', sans-serif;
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--terracotta);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .btn-submit {
+    background: var(--terracotta); color: white;
+    padding: 14px 32px; border-radius: 50px; font-size: 1rem; font-weight: 600;
+    cursor: pointer; border: none; transition: all 0.3s; font-family: 'DM Sans', sans-serif;
+    align-self: flex-start;
+  }
+  .btn-submit:hover { background: var(--brown); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(196,113,74,0.35); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal); color: rgba(253,246,236,0.75);
+    padding: 50px 5% 30px;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; gap: 30px;
+  }
+  .footer-logo { text-align: center; }
+  .footer-logo-name {
+    font-family: 'Playfair Display', serif; font-size: 1.8rem;
+    color: var(--cream); font-weight: 700; margin-bottom: 4px;
+  }
+  .footer-logo-sub { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--peach); }
+  .footer-links { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; }
+  .footer-links a { color: rgba(253,246,236,0.6); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--peach); }
+  .footer-bottom {
+    width: 100%; border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 24px; text-align: center; font-size: 0.8rem; color: rgba(253,246,236,0.4);
+  }
+
+  /* ── WA FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 999;
+    background: #25D366; color: white; width: 58px; height: 58px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+    text-decoration: none; transition: transform 0.3s;
+  }
+  .wa-float:hover { transform: scale(1.12); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { height: 300px; }
+    .workshops-grid, .events-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
+    .gallery-item:nth-child(1), .gallery-item:nth-child(5) { grid-column: span 1; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 65px 5%; }
+    .workshops-grid, .events-grid, .testimonials-grid, .why-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 30px; }
+  }
+</style>
+  </head>
+  <body>
+
+    <!-- NAV -->
+    <nav id="navbar">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">क</div>
+        <div class="nav-logo-text">The Kala Club<span>Art Workshops &
+            More</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#workshops">Workshops</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Book a Seat 🎨</a>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="mobile-close" id="mobileClose">✕</button>
+      <a href="#about" onclick="closeMobile()">About</a>
+      <a href="#workshops" onclick="closeMobile()">Workshops</a>
+      <a href="#events" onclick="closeMobile()">Events</a>
+      <a href="#gallery" onclick="closeMobile()">Gallery</a>
+      <a href="#contact" onclick="closeMobile()">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-bg-circles">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="hero-tag">📍 Based in Indore</span>
+      <h1>Where Strangers<br>Meet Through <em>Art</em></h1>
+      <p class="hero-sub">A community for creators and curious souls 🎨</p>
+      <p class="hero-desc">Join our cozy workshops, hunt your hobbies, and
+        create something beautiful — no experience needed. Just show up with
+        curiosity!</p>
+      <div class="hero-btns">
+        <a href="#workshops" class="btn-primary">Explore Workshops</a>
+        <a href="#contact" class="btn-secondary">Join the Community</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Workshops Done</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Happy Participants</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">12+</div>
+          <div class="stat-label">Art Categories</div>
+        </div>
+      </div>
+      <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="scroll-dot"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <div class="about-inner">
+        <div class="about-visual reveal">
+          <div class="about-card about-card-main">
+            <div class="big-emoji">🎨</div>
+            <p>"We organise. You create."</p>
+            <p
+              style="font-size:0.9rem; opacity:0.85; font-family:'DM Sans',sans-serif; margin-top:6px;">The
+              Kala Club, Indore</p>
+          </div>
+          <div class="about-card about-card-float">
+            <div class="mini-title">✨ Our promise</div>
+            <p>A safe, cozy creative space where every skill level is welcome —
+              and every mess is part of the art.</p>
+          </div>
+        </div>
+        <div class="reveal">
+          <span class="section-label">Our Story</span>
+          <h2 class="section-title">A Creative <em>Community</em> Born in
+            Indore</h2>
+          <p class="section-desc">The Kala Club is more than a workshop — it's a
+            movement. We believe every person has a creative spark inside them,
+            and all they need is the right space, the right community, and a
+            little paint to let it out.</p>
+          <p class="section-desc" style="margin-top:14px;">We started small,
+            with a handful of curious souls in Indore who just wanted to try
+            something new. Today, we host workshops on everything from resin art
+            to mirror mosaics, bringing together artists, beginners, students,
+            and families under one colourful roof.</p>
+          <div class="about-pills">
+            <span class="about-pill">🌿 Beginner Friendly</span>
+            <span class="about-pill">🤝 Community First</span>
+            <span class="about-pill">🎉 Always Fun</span>
+            <span class="about-pill">📍 Based in Indore</span>
+            <span class="about-pill">✨ Premium Experience</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKSHOPS -->
+    <section class="workshops" id="workshops">
+      <div class="workshops-inner">
+        <div class="reveal">
+          <span class="section-label">What We Offer</span>
+          <h2 class="section-title">Our <em>Workshop</em> Universe</h2>
+          <p class="section-desc">From beginner-friendly painting to mesmerising
+            resin art — there's a workshop for every curious soul. All materials
+            provided. All skill levels welcome.</p>
+        </div>
+        <div class="workshops-grid">
+          <div class="workshop-card reveal">
+            <span class="workshop-icon">🖌️</span>
+            <div class="workshop-name">Painting & Canvas Art</div>
+            <div class="workshop-desc">Guided acrylic and watercolour sessions
+              where you paint a complete artwork in just 2 hours — even if
+              you've never held a brush before!</div>
+            <span class="workshop-tag">Beginner Friendly</span>
+          </div>
+          <div class="workshop-card reveal">
+            <span class="workshop-icon">💎</span>
+            <div class="workshop-name">Resin Art</div>
+            <div class="workshop-desc">Craft stunning, glossy resin pieces —
+              from coasters to jewellery trays. Watch colours flow and swirl
+              into something magical right before your eyes.</div>
+            <span class="workshop-tag">Most Popular</span>
+          </div>
+          <div class="workshop-card reveal">
+            <span class="workshop-icon">🪞</span>
+            <div class="workshop-name">Mirror & Mosaic Art</div>
+            <div class="workshop-desc">Transform plain mirrors into dazzling
+              décor pieces using glass tiles, gems, and paint. Perfect for home
+              styling or gifting.</div>
+            <span class="workshop-tag">Bestseller</span>
+          </div>
+          <div class="workshop-card reveal">
+            <span class="workshop-icon">💄</span>
+            <div class="workshop-name">Lip Gloss & Clay Crafts</div>
+            <div class="workshop-desc">Make your own aesthetic clay lip gloss
+              cases and beauty products. Bold, minimal, trendy — craft your vibe
+              in this super fun session.</div>
+            <span class="workshop-tag">New & Trending</span>
+          </div>
+          <div class="workshop-card reveal">
+            <span class="workshop-icon">💐</span>
+            <div class="workshop-name">Floral & Bouquet Making</div>
+            <div class="workshop-desc">Create handcrafted fuzzy flower bouquets
+              and greeting cards — timeless, handmade, and personal. Perfect as
+              a gift or keepsake.</div>
+            <span class="workshop-tag">Gift-Worthy</span>
+          </div>
+          <div class="workshop-card reveal">
+            <span class="workshop-icon">✂️</span>
+            <div class="workshop-name">DIY Crafts & Hobby Sessions</div>
+            <div class="workshop-desc">From scrapbooking to macramé, journaling
+              to tie-dye — our hobby sessions are designed to help you discover
+              a new passion every month.</div>
+            <span class="workshop-tag">Monthly Special</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery">
+      <div class="gallery-inner">
+        <div class="reveal"
+          style="text-align:center; max-width:600px; margin:0 auto;">
+          <span class="section-label">Our Community</span>
+          <h2 class="section-title">Moments from <em>The Club</em></h2>
+          <p class="section-desc" style="margin:0 auto;">Real workshops, real
+            smiles, real art — a glimpse into the world we've built together in
+            Indore.</p>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-item reveal">
+            <div class="gallery-mock g1"><span>💎</span>Resin Art Session</div>
+            <div class="gallery-overlay">View More →</div>
+          </div>
+          <div class="gallery-item reveal">
+            <div class="gallery-mock g2"><span>🪞</span>Mirror Mosaic</div>
+            <div class="gallery-overlay">View More →</div>
+          </div>
+          <div class="gallery-item reveal">
+            <div class="gallery-mock g3"><span>🖌️</span>Canvas Workshop</div>
+            <div class="gallery-overlay">View More →</div>
+          </div>
+          <div class="gallery-item reveal">
+            <div class="gallery-mock g4"><span>💐</span>Bouquet Making</div>
+            <div class="gallery-overlay">View More →</div>
+          </div>
+          <div class="gallery-item reveal">
+            <div class="gallery-mock g5"><span>💄</span>Clay & Lip Gloss</div>
+            <div class="gallery-overlay">View More →</div>
+          </div>
+          <div class="gallery-item reveal">
+            <div class="gallery-mock g6"><span>✨</span>Community Moments</div>
+            <div class="gallery-overlay">View More →</div>
+          </div>
+        </div>
+        <p class="gallery-ig-note reveal">📸 See more on Instagram — <a
+            href="https://instagram.com/_thekalaclub_"
+            target="_blank">@_thekalaclub_</a></p>
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="events" id="events">
+      <div class="events-inner">
+        <div class="reveal">
+          <span class="section-label">Upcoming</span>
+          <h2 class="section-title">Reserve Your <em>Spot</em></h2>
+          <p class="section-desc">Our workshops fill up fast! Grab your seat
+            early and come create something beautiful with us.</p>
+        </div>
+        <div class="events-grid">
+          <div class="event-card reveal">
+            <div class="event-header eh1">
+              <div>
+                <div class="event-date">10 May</div>
+                <div class="event-month">Sunday · 6pm–8pm</div>
+              </div>
+              <div class="event-emoji">💄</div>
+            </div>
+            <div class="event-body">
+              <div class="event-name">Lip Gloss & Lighter Case Workshop</div>
+              <div class="event-meta">
+                <span>📍 H&H Coffee, South Tukoganj</span>
+                <span>💰 ₹500 per person</span>
+              </div>
+              <div class="event-seats">🔥 Limited seats — almost full!</div>
+              <a
+                href="https://wa.me/918827395088?text=Hi! I'd like to book a seat for the Lip Gloss Workshop on May 10"
+                class="btn-event" target="_blank">Book Now via WhatsApp</a>
+            </div>
+          </div>
+          <div class="event-card reveal">
+            <div class="event-header eh2">
+              <div>
+                <div class="event-date">8 May</div>
+                <div class="event-month">Friday · 5pm–7pm</div>
+              </div>
+              <div class="event-emoji">💐</div>
+            </div>
+            <div class="event-body">
+              <div class="event-name">Fuzzy Flower Bouquet & Mother's Day
+                Card</div>
+              <div class="event-meta">
+                <span>📍 Soho Café, Saket Old Palasia</span>
+                <span>💰 ₹499 per person</span>
+              </div>
+              <div class="event-seats">🌸 Mother's Day special — seats going
+                fast!</div>
+              <a
+                href="https://wa.me/918827395088?text=Hi! I'd like to book for the Fuzzy Flower Workshop on May 8"
+                class="btn-event" target="_blank">Book Now via WhatsApp</a>
+            </div>
+          </div>
+          <div class="event-card reveal">
+            <div class="event-header eh3">
+              <div>
+                <div class="event-date">26 Apr</div>
+                <div class="event-month">Saturday · 5pm–8pm</div>
+              </div>
+              <div class="event-emoji">🪞</div>
+            </div>
+            <div class="event-body">
+              <div class="event-name">Mirror Mosaic Workshop</div>
+              <div class="event-meta">
+                <span>📍 Daalchini Café, Vijay Nagar</span>
+                <span>💰 ₹549 per person</span>
+              </div>
+              <div class="event-seats">✅ Happening again soon — join the
+                waitlist!</div>
+              <a
+                href="https://wa.me/918827395088?text=Hi! I'd like to join the waitlist for Mirror Mosaic Workshop"
+                class="btn-event" target="_blank">Join Waitlist</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY US -->
+    <section class="why" id="why">
+      <div class="why-inner">
+        <div class="reveal">
+          <span class="section-label">Why The Kala Club</span>
+          <h2 class="section-title">More Than Just a <em>Workshop</em></h2>
+          <p class="section-desc">We don't just teach art — we build
+            connections, spark confidence, and create memories that last way
+            longer than any canvas.</p>
+        </div>
+        <div class="why-grid">
+          <div class="why-card reveal">
+            <span class="why-icon">🌱</span>
+            <div class="why-title">Zero Experience Needed</div>
+            <div class="why-desc">Every session is designed for complete
+              beginners. Our guides make sure nobody feels lost — just
+              excited.</div>
+          </div>
+          <div class="why-card reveal">
+            <span class="why-icon">🎒</span>
+            <div class="why-title">Everything Included</div>
+            <div class="why-desc">All art materials, tools, and supplies are
+              provided. Just bring yourself and your enthusiasm — we handle the
+              rest.</div>
+          </div>
+          <div class="why-card reveal">
+            <span class="why-icon">🤝</span>
+            <div class="why-title">Community Bonding</div>
+            <div class="why-desc">Meet like-minded creative souls. Our workshops
+              attract students, working professionals, and families — all united
+              by art.</div>
+          </div>
+          <div class="why-card reveal">
+            <span class="why-icon">🏡</span>
+            <div class="why-title">Cozy Café Settings</div>
+            <div class="why-desc">We host in the most beautiful cafés in Indore
+              — warm, aesthetic spaces that make creating feel extra
+              special.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+      <div class="testimonials-inner">
+        <div class="reveal"
+          style="text-align:center; max-width:560px; margin:0 auto;">
+          <span class="section-label">Love from the Club</span>
+          <h2 class="section-title">What Our Community <em>Says</em></h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testi-card reveal">
+            <div class="testi-stars">★★★★★</div>
+            <p
+              class="testi-text">"I went in not knowing anything about resin art and came out with the most beautiful tray I've ever owned. The vibe at The Kala Club is just so warm and chill — I've already signed up for the next one!"</p>
+            <div class="testi-user">
+              <div class="testi-avatar av1">P</div>
+              <div>
+                <div class="testi-name">Priya Sharma</div>
+                <div class="testi-role">Resin Art Workshop · Indore</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card reveal">
+            <div class="testi-stars">★★★★★</div>
+            <p
+              class="testi-text">"Attended the Mirror Mosaic Workshop with my bestie and it was the most fun Saturday we've had in ages. The instructors are so patient and the café setting made it feel like a mini vacation!"</p>
+            <div class="testi-user">
+              <div class="testi-avatar av2">A</div>
+              <div>
+                <div class="testi-name">Ananya Verma</div>
+                <div class="testi-role">Mirror Mosaic Workshop · Vijay
+                  Nagar</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card reveal">
+            <div class="testi-stars">★★★★★</div>
+            <p
+              class="testi-text">"Did the Lip Gloss & Clay Case workshop with my college friends — honestly one of the best 200 rupees I've ever spent! Came home with a gorgeous custom case and a bunch of new friends."</p>
+            <div class="testi-user">
+              <div class="testi-avatar av3">R</div>
+              <div>
+                <div class="testi-name">Riya Joshi</div>
+                <div class="testi-role">Clay Craft Workshop · South
+                  Tukoganj</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <div class="contact-inner">
+        <div class="reveal">
+          <span class="section-label">Get in Touch</span>
+          <h2 class="section-title">Let's Create <em>Together</em></h2>
+          <p class="section-desc">Have questions? Want to book a private
+            workshop for a group? Or just want to say hi? We'd love to hear from
+            you!</p>
+          <div class="contact-info" style="margin-top:36px;">
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <div class="contact-item-label">Location</div>
+                <div class="contact-item-val">Indore, Madhya Pradesh<br><small
+                    style="color:var(--terracotta)">Various café venues —
+                    announced per event</small></div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📱</div>
+              <div>
+                <div class="contact-item-label">WhatsApp / Call</div>
+                <div class="contact-item-val"><a href="tel:+918827395088"
+                    style="color:var(--brown);text-decoration:none;">+91 88273
+                    95088</a></div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🎨</div>
+              <div>
+                <div class="contact-item-label">Follow Our Journey</div>
+                <div class="contact-socials">
+                  <a href="https://instagram.com/_thekalaclub_" target="_blank"
+                    class="social-chip">📸 Instagram</a>
+                  <a href="https://wa.me/918827395088" target="_blank"
+                    class="social-chip">💬 WhatsApp</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="e.g. Priya Sharma">
+              </div>
+              <div class="form-group">
+                <label>Phone / WhatsApp</label>
+                <input type="tel" placeholder="+91 XXXXX XXXXX">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>I'm interested in…</label>
+              <select>
+                <option>Resin Art Workshop</option>
+                <option>Mirror Mosaic Workshop</option>
+                <option>Painting & Canvas</option>
+                <option>Lip Gloss & Clay Crafts</option>
+                <option>Bouquet Making</option>
+                <option>Private / Group Booking</option>
+                <option>Just want to say hi! 👋</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea
+                placeholder="Tell us anything — questions, custom requests, or just drop a hello..."></textarea>
+            </div>
+            <button class="btn-submit" onclick="handleSubmit()">Send Message
+              🎨</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <div class="footer-logo-name">The Kala Club</div>
+          <div class="footer-logo-sub">Art workshops & more · Indore</div>
+        </div>
+        <div class="footer-links">
+          <a href="#about">About</a>
+          <a href="#workshops">Workshops</a>
+          <a href="#events">Events</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Contact</a>
+          <a href="https://instagram.com/_thekalaclub_"
+            target="_blank">Instagram</a>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 The Kala Club · Made with ❤️ for creators and curious souls
+            in Indore</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a
+      href="https://wa.me/918827395088?text=Hi! I found your website and I'd love to know more about your workshops 🎨"
+      target="_blank" class="wa-float" title="Chat on WhatsApp">💬</a>
+
+    <script>
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileClose = document.getElementById('mobileClose');
+  hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  function closeMobile() { mobileMenu.classList.remove('open'); }
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit() {
+    alert('Thanks for reaching out! 🎨 We\'ll get back to you on WhatsApp very soon. — The Kala Club Team');
+  }
+</script>
+  </body>
+</html>
